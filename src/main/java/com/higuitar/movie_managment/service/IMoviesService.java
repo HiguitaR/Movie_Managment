@@ -1,6 +1,7 @@
 package com.higuitar.movie_managment.service;
 
 import com.higuitar.movie_managment.exception.MovieAlreadyExistException;
+import com.higuitar.movie_managment.exception.MovieNotFoundException;
 import com.higuitar.movie_managment.mapper.MovieMapper;
 import com.higuitar.movie_managment.model.dto.MovieRequestDto;
 import com.higuitar.movie_managment.model.dto.MovieResponseDto;
@@ -31,12 +32,31 @@ public class IMoviesService implements MovieService{
 
     @Override
     public MovieResponseDto getMovieById(Long id) {
-        return null;
+
+        return movieRepository.findById(id)
+                .map(movieMapper::toResponse)
+                .orElseThrow(MovieNotFoundException::new);
     }
 
     @Override
     public List<MovieResponseDto> getAllMovies(String director, String genre) {
-        return List.of();
+
+        List<MovieEntity> movies;
+        boolean hasDirector = director != null && !director.isBlank();
+        boolean hasGenre = genre != null && !genre.isBlank();
+
+        if(hasDirector){
+            movies = movieRepository.findByDirectorContainingIgnoreCase(director);
+
+        }else if (hasGenre) {
+            movies = movieRepository.findByGenreIgnoreCase(genre);
+        }else{
+            movies = movieRepository.findAll();
+        }
+
+        return movies.stream()
+                .map(movieMapper::toResponse)
+                .toList();
     }
 
     @Override

@@ -18,4 +18,5 @@ public interface MovieRepository extends JpaRepository<MovieEntity, Long> {
     // "NullPointerException". Te obliga a verificar si la película existe (isPresent())
     // antes de usarla.
     Optional<MovieEntity> findByTitle(String title);
+
 }
