@@ -5,6 +5,7 @@ import com.higuitar.movie_managment.model.dto.MovieResponseDto;
 import com.higuitar.movie_managment.model.entity.MovieEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
@@ -13,4 +14,7 @@ public interface MovieMapper {
     MovieEntity toEntity(MovieRequestDto requestDto);
 
     MovieResponseDto toResponse(MovieEntity entity);
+
+    @Mapping(target = "id", ignore = true)
+    void UpdateMovieFromDto(MovieRequestDto dto, @MappingTarget MovieEntity entity);
 }

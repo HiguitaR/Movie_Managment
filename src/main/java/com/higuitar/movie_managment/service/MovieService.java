@@ -14,4 +14,6 @@ public interface MovieService {
     List<MovieResponseDto> getAllMovies(String director, String genre);
 
     MovieResponseDto updateMovie(Long id, MovieRequestDto movieRequestDto);
+
+    void movieDelete(Long id);
 }

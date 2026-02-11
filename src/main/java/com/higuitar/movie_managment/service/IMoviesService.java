@@ -2,6 +2,7 @@ package com.higuitar.movie_managment.service;
 
 import com.higuitar.movie_managment.exception.MovieAlreadyExistException;
 import com.higuitar.movie_managment.exception.MovieNotFoundException;
+import com.higuitar.movie_managment.exception.ResourceNotFoundException;
 import com.higuitar.movie_managment.mapper.MovieMapper;
 import com.higuitar.movie_managment.model.dto.MovieRequestDto;
 import com.higuitar.movie_managment.model.dto.MovieResponseDto;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -54,13 +56,31 @@ public class IMoviesService implements MovieService{
             movies = movieRepository.findAll();
         }
 
-        return movies.stream()
+        return Optional.ofNullable(movies)
+                .filter(m -> !m.isEmpty())
+                .orElseThrow(ResourceNotFoundException::new)
+                .stream()
                 .map(movieMapper::toResponse)
                 .toList();
     }
 
     @Override
     public MovieResponseDto updateMovie(Long id, MovieRequestDto movieRequestDto) {
-        return null;
+
+        var movie = movieRepository.findById(id)
+                .orElseThrow(ResourceNotFoundException::new);
+
+        movieMapper.UpdateMovieFromDto(movieRequestDto, movie);//Aqui se hace la magia para actualizar la movie
+
+        return movieMapper.toResponse(movieRepository.save(movie));
+    }
+
+    @Override
+    public void movieDelete(Long id) {
+
+        var movie = movieRepository.findById(id)
+                .orElseThrow(ResourceNotFoundException::new);
+
+        movieRepository.delete(movie);
     }
 }
