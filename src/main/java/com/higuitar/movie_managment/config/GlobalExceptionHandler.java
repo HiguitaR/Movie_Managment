@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
                 request.getRequestURI());
     }
 
-    @ExceptionHandler(MovieNotFoundException.class)
+    @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ApiErrorResponse handlerResourceNotFound(ResourceNotFoundException ex,
                                                     HttpServletRequest request){
