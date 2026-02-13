@@ -3,10 +3,10 @@ package com.higuitar.movie_managment.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@ToString(exclude = {"id"})
 @Entity
 @Table(name = "movies")
 public class MovieEntity {
@@ -28,4 +28,5 @@ public class MovieEntity {
 
     @Column()
     private Double imdbRating;
+
 }

@@ -9,11 +9,11 @@ import jakarta.validation.constraints.*;
 public record MovieRequestDto (
 
     @NotBlank(message = "El title es obligatorio")
-    @Size(min = 2, max = 50, message = "El title debe tener entre 2 y 50 caracteres")
+    @Size(min = 2, max = 100, message = "El title debe tener entre 2 y 100 caracteres")
     String title,
 
     @NotBlank(message = "El director es obligatorio")
-    @Size(min = 2, max = 30, message = "El director debe tener entre 2 y 30 caracteres")
+    @Size(min = 2, max = 100, message = "El director debe tener entre 2 y 100 caracteres")
     String director,
 
     @NotBlank(message = "EL genero es obligatorio")
@@ -27,8 +27,8 @@ public record MovieRequestDto (
     @JsonProperty("year_released")
     Integer releaseYear,
 
-    @Min(value = 1, message = "La calificación IMDb debe ser al menos 1.")
-    @Max(value = 10, message = "La calificación IMDb no puede exceder 10.")
+    @Min(value = 1, message = "La calificación IMDb debe ser al menos 1")
+    @Max(value = 10, message = "La calificación IMDb no puede exceder 10")
     @JsonProperty("imdb_score")
     Double imdbRating){}
 

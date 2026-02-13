@@ -1,0 +1,84 @@
+###Created Movie 1
+POST /api/movies HTTP/1.1
+Host: localhost:8081
+Content-Type: application/json
+
+{
+  "title": "Inception",
+  "director": "Christopher Nolan",
+  "genre": "Sci-Fi",
+  "year_released": 2010,
+  "imdb_score": 8.8
+}
+
+###Created Movie 2
+POST /api/movies/ HTTP/1.1
+Host: localhost:8081
+Content-Type: application/json
+
+{
+  "title": "Dune: Part Two",
+  "year_released": "2024",
+  "imdb_score": "8.4",
+  "director": "Denis Villeneuve",
+  "genre": "Sci-Fi"
+}
+
+###Created Movie 3
+PUT /api/movies/3 HTTP/1.1
+Host: localhost:8081
+Content-Type: application/json
+
+{
+  "title": "The Brutalist",
+  "year_released": "2024",
+  "imdb_score": "7.2",
+  "director": "Brady Corbet",
+  "genre": "Drama"
+}
+
+###Created Movie 4
+PUT /api/movies/4 HTTP/1.1
+Host: localhost:8081
+Content-Type: application/json
+
+{
+  "title": "Furiosa: A Mad Max Saga",
+  "year_released": "2024",
+  "imdb_score": "7.5",
+  "director": "George Miller",
+  "genre": "Action"
+}
+
+###Created Movie 5
+PUT /api/movies/5 HTTP/1.1
+Host: localhost:8081
+Content-Type: application/json
+
+{
+  "title": "The Substance",
+  "year_released": "2024",
+  "imdb_score": "7.2",
+  "director": "Coralie Fargeat",
+  "genre": "Horror"
+}
+
+###
+DELETE /api/movies/1 HTTP/1.1
+Host: localhost:8081
+
+###
+GET /api/movies/5 HTTP/1.1
+Host: localhost:8081
+
+###
+GET /api/movies HTTP/1.1
+Host: localhost:8081
+
+###
+GET /api/movies?director=George%20Miller
+Host: localhost:8081
+
+###
+GET /api/movies?genre=horror
+Host: localhost:8081

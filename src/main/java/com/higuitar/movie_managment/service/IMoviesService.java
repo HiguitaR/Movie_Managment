@@ -8,6 +8,7 @@ import com.higuitar.movie_managment.model.dto.MovieRequestDto;
 import com.higuitar.movie_managment.model.dto.MovieResponseDto;
 import com.higuitar.movie_managment.model.entity.MovieEntity;
 import com.higuitar.movie_managment.repository.MovieRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,8 @@ public class IMoviesService implements MovieService{
     @Override
     public MovieResponseDto createMovie(MovieRequestDto movieRequestDto) {
 
-        if(movieRepository.findByTitle(movieRequestDto.title()).isPresent()){
+        if(movieRepository.findByTitle(
+                movieRequestDto.title()).isPresent()){
             throw new MovieAlreadyExistException();
         }
         MovieEntity movie = movieMapper.toEntity(movieRequestDto);
@@ -76,9 +78,9 @@ public class IMoviesService implements MovieService{
     }
 
     @Override
-    public void movieDelete(Long id) {
+    public void deleteMovie(Long id) {
 
-        var movie = movieRepository.findById(id)
+        MovieEntity movie = movieRepository.findById(id)
                 .orElseThrow(ResourceNotFoundException::new);
 
         movieRepository.delete(movie);
